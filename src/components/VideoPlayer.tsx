@@ -15,6 +15,7 @@ const VideoPlayer: React.FC<PlayerProps> = ({ url }) => {
         let hls: Hls | null = null;
         let dashPlayer: dashjs.MediaPlayerClass | null = null;
 
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsLoading(true);
         video.pause();
         video.removeAttribute('src');
