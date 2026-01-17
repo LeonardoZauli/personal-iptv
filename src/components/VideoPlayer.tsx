@@ -8,6 +8,7 @@ const VideoPlayer: React.FC<PlayerProps> = ({ url }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isLoading, setIsLoading] = useState(true);
 
+
     useEffect(() => {
         const video = videoRef.current;
         if (!video || !url) return;
