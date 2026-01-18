@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react'
 // vite.config.ts
 export default defineConfig({
     plugins: [react()],
+    base: '/personal-iptv/',
     server: {
         host: '0.0.0.0', // Ascolta su tutte le interfacce di rete
         port: 5173,
