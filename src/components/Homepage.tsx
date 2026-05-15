@@ -7,6 +7,7 @@ interface Channel {
     name: string;
     url: string;
     logo: string;
+    specialStream?: 'tv8';
 }
 
 const Homepage: React.FC = () => {
@@ -16,10 +17,15 @@ const Homepage: React.FC = () => {
         <div className="home-container">
             <aside className="sidebar">
                 <div className="sidebar-header">
-                    <h2 className="sidebar-brand">IPTV<span style={{color: 'var(--accent)'}}>ITA</span></h2>
+                    <h2 className="sidebar-brand">
+                        IPTV<span className="sidebar-brand-accent">ITA</span>
+                    </h2>
                 </div>
                 <div className="sidebar-content">
-                    <IptvList onSelectChannel={(ch) => setSelectedChannel(ch)} />
+                    <IptvList
+                        onSelectChannel={(ch) => setSelectedChannel(ch)}
+                        selectedChannelUrl={selectedChannel?.url ?? null}
+                    />
                 </div>
             </aside>
 
@@ -35,11 +41,14 @@ const Homepage: React.FC = () => {
 
                 <section className="player-container">
                     {selectedChannel ? (
-                        <VideoPlayer url={selectedChannel.url} />
+                        <VideoPlayer
+                            key={`${selectedChannel.specialStream ?? 'default'}:${selectedChannel.url}`}
+                            channel={selectedChannel}
+                        />
                     ) : (
-                        <div className="placeholder-player" style={{textAlign: 'center'}}>
-                            <div style={{fontSize: '3rem', opacity: 0.2}}>📺</div>
-                            <p style={{fontSize: '0.8rem', opacity: 0.5}}>Seleziona un canale</p>
+                        <div className="placeholder-player" role="status" aria-live="polite">
+                            <div className="placeholder-icon" aria-hidden="true">📺</div>
+                            <p className="placeholder-text">Seleziona un canale</p>
                         </div>
                     )}
                 </section>
